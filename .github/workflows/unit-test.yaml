@@ -18,13 +18,11 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.NODE_VERSION }}
-    - name: Check files
-      run: ls -a
-    # - name: Install Modules
-    #   working-directory: ${{ inputs.WORKING_DIRECTORY }}
-    #   run: npm --version && npm install
-    #   env:
-    #     SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}     
-    # - name: Running unit test
-    #   working-directory: ${{ inputs.WORKING_DIRECTORY }}
-    #   run: npm run test
+    - name: Install Modules
+      working-directory: ${{ inputs.WORKING_DIRECTORY }}
+      run: npm --version && npm install
+      env:
+        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}     
+    - name: Running unit test
+      working-directory: ${{ inputs.WORKING_DIRECTORY }}
+      run: npm run test
