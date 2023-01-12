@@ -16,10 +16,8 @@ on :
         default: '16.15'
         type: string
     secrets:
-          SONAR_TOKEN:
-            required: true
-          SONAR_HOST_URL:
-            required: true
+          SONAR_TOKEN
+          SONAR_HOST_URL
 jobs:
   shared-library-workflows-lint:
     if: ${{ inputs.run_lint == 'true' }}
