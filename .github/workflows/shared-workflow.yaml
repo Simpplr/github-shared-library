@@ -16,7 +16,7 @@ on :
         default: '16.15'
         type: string
       WORKING_DIRECTORY:
-        default: '/'
+        default: ''
         type: string
     secrets:
           SONAR_TOKEN:
