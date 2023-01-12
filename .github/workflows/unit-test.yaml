@@ -22,7 +22,7 @@ jobs:
       working-directory: ${{ inputs.WORKING_DIRECTORY }}
       run: npm --version && npm install
       env:
-        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}     
+        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}
     - name: Running unit test
       working-directory: ${{ inputs.WORKING_DIRECTORY }}
       run: npm run test
