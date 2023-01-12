@@ -4,16 +4,16 @@ on :
   workflow_call:
     inputs:
       run_lint:
-        default: false
-        type: boolean
+        default: 'false'
+        type: string
       run_unit:
-        default: false
-        type: boolean
+        default: 'false'
+        type: string
       run_sonar:
-        default: false
-        type: boolean
+        default: 'false'
+        type: string
       NODE_VERSION:
-        default: "16.15"
+        default: '16.15'
         type: string
 jobs:
   shared-library-workflows-lint:
