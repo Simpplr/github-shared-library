@@ -4,6 +4,9 @@ on:
     inputs:
       NODE_VERSION:
         type: string
+    secrets:
+      SIMPPLR_NPM_TOKEN:
+        required: true
 jobs:
   unit-test:
     runs-on: self-hosted
@@ -15,5 +18,7 @@ jobs:
         node-version: ${{ inputs.NODE_VERSION }}
     - name: Install Modules
       run: npm --version && npm install
+      env:
+        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}      
     - name: Running unit test
       run: npm run test

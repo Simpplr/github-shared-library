@@ -20,6 +20,8 @@ on :
             required: false
           SONAR_HOST_URL:
             required: false
+          SIMPPLR_NPM_TOKEN:
+            required: false
 jobs:
   shared-library-workflows-lint:
     if: ${{ inputs.run_lint == 'true' }}
@@ -31,6 +33,8 @@ jobs:
     uses: Simpplr/github-shared-library/.github/workflows/unit-test.yaml@main
     with:
       NODE_VERSION: ${{ inputs.NODE_VERSION }}
+    secrets:
+      SIMPPLR_NPM_TOKEN: ${{secrets.SIMPPLR_NPM_TOKEN}}
   shared-library-workflows-sonarqube:
     if: ${{ inputs.run_sonar == 'true' }}
     uses: Simpplr/github-shared-library/.github/workflows/sonarqube.yaml@main
