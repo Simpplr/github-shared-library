@@ -1,5 +1,5 @@
 ---
-name: Shared Workflow for actionsa
+name: Shared Workflow for actions
 on :
   workflow_call:
     inputs:
