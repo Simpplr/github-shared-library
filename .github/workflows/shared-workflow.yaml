@@ -15,7 +15,11 @@ on :
       NODE_VERSION:
         default: '16.15'
         type: string
-
+    secrets:
+          SONAR_TOKEN:
+            required: false
+          SONAR_HOST_URL:
+            required: false
 jobs:
   shared-library-workflows-lint:
     if: ${{ inputs.run_lint == 'true' }}
