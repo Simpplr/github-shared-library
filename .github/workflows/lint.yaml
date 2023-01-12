@@ -7,12 +7,9 @@ on:
 jobs:
   lint:
     runs-on: self-hosted
-    container: ubuntu:latest
+    container: node:${{ inputs.NODE_VERSION }}
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: ${{ inputs.NODE_VERSION }}
     - name: Install modules
       run: yarn
     - name: Run ESLint
