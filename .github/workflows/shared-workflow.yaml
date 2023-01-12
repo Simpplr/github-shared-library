@@ -15,9 +15,7 @@ on :
       NODE_VERSION:
         default: '16.15'
         type: string
-    secrets:
-          SONAR_TOKEN
-          SONAR_HOST_URL
+    secrets: inherit
 jobs:
   shared-library-workflows-lint:
     if: ${{ inputs.run_lint == 'true' }}
