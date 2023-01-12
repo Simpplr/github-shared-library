@@ -1,0 +1,19 @@
+name: Unit Test
+on:
+  workflow_call:
+    inputs:
+      NODE_VERSION:
+        type: string
+jobs:
+  unit-test:
+    runs-on: self-hosted
+    container: ubuntu:latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+    - name: Install Modules
+      run: npm --version && npm install
+    - name: Running unit test
+      run: npm run test

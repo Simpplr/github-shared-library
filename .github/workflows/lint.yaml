@@ -1,0 +1,21 @@
+name: Lint
+on:
+  workflow_call:
+    inputs:
+      NODE_VERSION:
+        type: string
+jobs:
+  lint:
+    runs-on: self-hosted
+    container: ubuntu:latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+    - name: Install modules
+      run: yarn
+    - name: Run ESLint
+      run: yarn run eslint . --ext .js -c .eslintrc.js  #To display output on console
+    - name: Generate Report
+      run: yarn run eslint . --ext .js -c .eslintrc.js -f checkstyle > eslint.xml #To create report which will be use by checkstyle plugin

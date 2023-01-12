@@ -1,0 +1,31 @@
+---
+name: Shared Workflow for actionsa
+on :
+  workflow_call:
+    inputs:
+      run_lint:
+        default: false
+        type: boolean
+      run_unit:
+        default: false
+        type: boolean
+      run_sonar:
+        default: false
+        type: boolean
+      NODE_VERSION:
+        default: "16.15"
+        type: string
+jobs:
+  shared-library-workflows-lint:
+    if: ${{ inputs.run_lint == 'true' }}
+    uses: Simpplr/github-shared-library/.github/workflows/lint.yaml@main
+    with:
+      NODE_VERSION: ${{ inputs.NODE_VERSION }}
+  shared-library-workflows-unit-test:
+    if: ${{ inputs.run_unit == 'true' }}
+    uses: Simpplr/github-shared-library/.github/workflows/unit-test.yaml@main
+    with:
+      NODE_VERSION: ${{ inputs.NODE_VERSION }}
+  shared-library-workflows-sonarqube:
+    if: ${{ inputs.run_sonar == 'true' }}
+    uses: Simpplr/github-shared-library/.github/workflows/sonarqube.yaml@main
