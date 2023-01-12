@@ -4,6 +4,8 @@ on:
     inputs:
       NODE_VERSION:
         type: string
+      WORKING_DIRECTORY:
+        type: string
     secrets:
       SIMPPLR_NPM_TOKEN:
         required: true
@@ -19,6 +21,10 @@ jobs:
     - name: Install Modules
       run: npm --version && npm install
       env:
-        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}      
+        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}
+      with:
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}      
     - name: Running unit test
       run: npm run test
+      with:
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}     
