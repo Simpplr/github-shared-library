@@ -15,6 +15,11 @@ on :
       NODE_VERSION:
         default: '16.15'
         type: string
+    secrets:
+          SONAR_TOKEN:
+            required: true
+          SONAR_HOST_URL:
+            required: true
 jobs:
   shared-library-workflows-lint:
     if: ${{ inputs.run_lint == 'true' }}
@@ -29,3 +34,6 @@ jobs:
   shared-library-workflows-sonarqube:
     if: ${{ inputs.run_sonar == 'true' }}
     uses: Simpplr/github-shared-library/.github/workflows/sonarqube.yaml@main
+    secrets:
+      SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+      SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
