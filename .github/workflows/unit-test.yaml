@@ -19,6 +19,7 @@ jobs:
       id: import-env
       shell: bash
       run: |
+        cd .github/workflows &&
         while read line; do
           echo "$line" >> $GITHUB_ENV
         done < ut.env
