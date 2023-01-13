@@ -21,7 +21,8 @@ jobs:
       run: |
         cd .github/workflows && cat ut.env >> $GITHUB_ENV ;
     - name: Print environment variable
-      run: echo ${{ steps.import-env.outputs.result }} 
+      run: echo ${{ steps.import-env.outputs.result }}
+      env: ${{ steps.import-env.outputs.result }}
     # - uses: actions/setup-node@v3
     #   with:
     #     node-version: ${{ inputs.NODE_VERSION }}
