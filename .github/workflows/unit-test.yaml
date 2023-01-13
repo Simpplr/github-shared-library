@@ -15,15 +15,13 @@ jobs:
     container: ubuntu:latest
     steps:
     - uses: actions/checkout@v3
-    - name: Print env file
-      shell: bash
-      run: cd .github/workflows && cat ut.env
     - name: Import environment variables from a file
+      id: import-env
       shell: bash
       run: |
         cd .github/workflows && cat ut.env >> $GITHUB_ENV ;
     - name: Print environment variable
-      run: echo $GITHUB_ENV
+      run: echo ${{ steps.import-env.outputs.result }} 
     # - uses: actions/setup-node@v3
     #   with:
     #     node-version: ${{ inputs.NODE_VERSION }}
