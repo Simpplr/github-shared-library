@@ -21,11 +21,11 @@ jobs:
       run: |
         cd .github/workflows &&
         while read line; do
-          echo "$line" >> $UT_ENV
+          echo "$line" >> $GITHUB_ENV
         done < ut.env
     - name: Print Variable
       shell: bash
-      run: echo $UT_ENV
+      run: echo $GITHUB_ENV
     - uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.NODE_VERSION }}
