@@ -17,9 +17,12 @@ jobs:
     - uses: actions/checkout@v3
     - name: Import environment variables from a file
       id: import-env
-      shell: bash
-      run: |
-        cat ${{ ut.env }} >> $GITHUB_ENV
+      uses: actions/github-script@v6s
+      with:
+        script: |
+          const env = parseEnv(`${process.env.GITHUB_WORKSPACE}/dev.env`);
+          Object.entries(env).forEach(x => core.exportVariable(...x)); // current job-level env
+          return env;
     - uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.NODE_VERSION }}
@@ -31,4 +34,4 @@ jobs:
     - name: Running unit test
       working-directory: ${{ inputs.WORKING_DIRECTORY }}
       run: npm run test
-      env: ${{ $GITHUB_ENV }}
+      env: ${{ fromJson(steps.import-env.outputs.result) }}
