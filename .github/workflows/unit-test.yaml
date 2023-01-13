@@ -20,18 +20,14 @@ jobs:
       shell: bash
       run: |
         cd .github/workflows && cat ut.env >> $GITHUB_ENV ;
-    - name: Print environment variable
-      run: echo ${{ steps.import-env.outputs.result }}
-      env: ${{ steps.import-env.outputs.result }}
-    # - uses: actions/setup-node@v3
-    #   with:
-    #     node-version: ${{ inputs.NODE_VERSION }}
-    # - name: Install Modules
-    #   working-directory: ${{ inputs.WORKING_DIRECTORY }}
-    #   run: npm --version && npm install
-    #   env:
-    #     SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}     
-    # - name: Running unit test
-    #   working-directory: ${{ inputs.WORKING_DIRECTORY }}
-    #   run: npm run test
-    #   env: ${{ fromJson(steps.import-env.outputs.result) }}
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+    - name: Install Modules
+      working-directory: ${{ inputs.WORKING_DIRECTORY }}
+      run: npm --version && npm install
+      env:
+        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}     
+    - name: Running unit test
+      working-directory: ${{ inputs.WORKING_DIRECTORY }}
+      run: npm run test
