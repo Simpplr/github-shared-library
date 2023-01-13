@@ -15,6 +15,14 @@ jobs:
     container: ubuntu:latest
     steps:
     - uses: actions/checkout@v3
+    - name: Import environment variables from a file
+      id: import-env
+      uses: actions/github-script@v2
+      with:
+        script: |
+          const env = parseEnv(`${process.env.GITHUB_WORKSPACE}/ut.env`);
+          Object.entries(env).forEach(x => core.exportVariable(...x)); // current job-level env
+          return env;
     - uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.NODE_VERSION }}
@@ -22,7 +30,8 @@ jobs:
       working-directory: ${{ inputs.WORKING_DIRECTORY }}
       run: npm --version && npm install
       env:
-        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}
+        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}     
     - name: Running unit test
       working-directory: ${{ inputs.WORKING_DIRECTORY }}
       run: npm run test
+      env: ${{ fromJson(steps.import-env.outputs.result) }}
