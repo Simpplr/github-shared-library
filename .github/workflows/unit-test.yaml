@@ -23,15 +23,18 @@ jobs:
         while read line; do
           echo "$line" >> $GITHUB_ENV
         done < ut.env
-    - uses: actions/setup-node@v3
-      with:
-        node-version: ${{ inputs.NODE_VERSION }}
-    - name: Install Modules
-      working-directory: ${{ inputs.WORKING_DIRECTORY }}
-      run: npm --version && npm install
-      env:
-        SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}     
-    - name: Running unit test
-      working-directory: ${{ inputs.WORKING_DIRECTORY }}
-      run: npm run test
-      env: ${{ fromJson(steps.import-env.outputs.result) }}
+    - name: Print environment variable
+      run: echo $ABC
+      env: ${{ fromJson(steps.import-env.outputs.result) }} # step-level env
+    # - uses: actions/setup-node@v3
+    #   with:
+    #     node-version: ${{ inputs.NODE_VERSION }}
+    # - name: Install Modules
+    #   working-directory: ${{ inputs.WORKING_DIRECTORY }}
+    #   run: npm --version && npm install
+    #   env:
+    #     SIMPPLR_NPM_TOKEN: ${{ secrets.SIMPPLR_NPM_TOKEN }}     
+    # - name: Running unit test
+    #   working-directory: ${{ inputs.WORKING_DIRECTORY }}
+    #   run: npm run test
+    #   env: ${{ fromJson(steps.import-env.outputs.result) }}
