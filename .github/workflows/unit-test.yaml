@@ -6,6 +6,8 @@ on:
         type: string
       WORKING_DIRECTORY:
         type: string
+      ENVIRONMENT:
+        type: string
     secrets:
       SIMPPLR_NPM_TOKEN:
         required: true
@@ -15,17 +17,17 @@ jobs:
     container: ubuntu:latest
     steps:
     - uses: actions/checkout@v3
-    - name: Import environment variables from a file
-      id: import-env
-      shell: bash
-      run: |
-        cd .github/workflows &&
-        while read line; do
-          echo "$line" >> $GITHUB_ENV
-        done < ut.env
-    - name: Print Variable
-      shell: bash
-      run: echo $GITHUB_ENV
+    # - name: Import environment variables from a file
+    #   id: import-env
+    #   shell: bash
+    #   run: |
+    #     cd .github/workflows &&
+    #     while read line; do
+    #       echo "$line" >> $GITHUB_ENV
+    #     done < ut.env
+    # - name: Print Variable
+    #   shell: bash
+    #   run: echo $GITHUB_ENV
     - uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.NODE_VERSION }}
@@ -37,3 +39,4 @@ jobs:
     - name: Running unit test
       working-directory: ${{ inputs.WORKING_DIRECTORY }}
       run: npm run test
+      env: ${{ inputs.ENVIRONMENT }}
