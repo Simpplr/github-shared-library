@@ -19,10 +19,10 @@ jobs:
       id: import-env
       shell: bash
       run: |
-        cd .github/workflows && cat ut.env >> $GITHUB_ENV && return $GITHUB_ENV;
+        cd .github/workflows && cat ut.env >> $GITHUB_ENV;
     - name: Print environment variable
       run: echo $USE_SINGLE_CLIENT
-      env: ${{ steps.import-env.outputs.result }} # step-level env
+      env: ${{ GITHUB_ENV }} # step-level env
     # - uses: actions/setup-node@v3
     #   with:
     #     node-version: ${{ inputs.NODE_VERSION }}
