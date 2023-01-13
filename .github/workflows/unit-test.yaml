@@ -15,14 +15,14 @@ jobs:
     container: ubuntu:latest
     steps:
     - uses: actions/checkout@v3
-    - name: Import environment variables from a file
-      id: import-env
-      shell: bash
-      run: |
-        cd .github/workflows &&
-        while read line; do
-          echo "$line" >> $GITHUB_ENV
-        done < ut.env
+    # - name: Import environment variables from a file
+    #   id: import-env
+    #   shell: bash
+    #   run: |
+    #     cd .github/workflows &&
+    #     while read line; do
+    #       echo "$line" >> $GITHUB_ENV
+    #     done < ut.env
     - uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.NODE_VERSION }}
@@ -34,3 +34,13 @@ jobs:
     - name: Running unit test
       working-directory: ${{ inputs.WORKING_DIRECTORY }}
       run: npm run test
+      env:
+          USE_SINGLE_CLIENT: 'Y'
+          DEFAULT_IDLE_TIMEOUT_IN_MINS: 'NA'
+          MAX_DELEGATION_REQUEST_DURATION_IN_SECS: '7200'
+          IDP_ENCRYPTION_CERT: 'TESTCERT'
+          ENV: 'DEV'
+          NODE_ENV: 'DEV'
+          PORT: '5000'
+          DB_DIALECT: 'postgres' 
+          ZEUS_DB_NAME: content_mgmt
